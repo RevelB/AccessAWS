@@ -84,11 +84,17 @@ export default function ReportingPage() {
         // Fetch all jobs from Amplify
         const { data: jobsList } = await client.models.Job.list();
         
+        // Convert the Amplify data format to our Job type, parsing services from JSON
+        const convertedJobs = jobsList.map(jobData => ({
+          ...jobData,
+          services: jobData.services ? JSON.parse(jobData.services) : []
+        })) as Job[];
+        
         // Apply client-side search query filter
-        let filteredJobs = jobsList;
+        let filteredJobs = convertedJobs;
         if (searchQuery && searchQuery.trim() !== '') {
           const lowerCaseSearchQuery = searchQuery.toLowerCase().trim();
-          filteredJobs = jobsList.filter(job => {
+          filteredJobs = convertedJobs.filter(job => {
             const servicesString = (job.services || []).map(s => `${s.name} ${s.subService} ${s.notes}`).join(' ').toLowerCase();
             if (servicesString.includes(lowerCaseSearchQuery)) {
               return true;
@@ -268,7 +274,7 @@ export default function ReportingPage() {
     return services.map(s => {
       let detail = s.customName || s.name;
       if (s.subService) {
-          detail += ` (${s.customSubService || s.subService})`;
+          detail += ` (${s.subService})`;
       }
       if (s.notes) {
           detail += `: ${s.notes}`;

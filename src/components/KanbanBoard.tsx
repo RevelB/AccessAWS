@@ -24,15 +24,18 @@ export function KanbanBoard({ statusFilter }: KanbanBoardProps) {
       try {
         const statusesToQuery = statusFilter === 'open' ? OPEN_JOB_STATUSES : FINISHED_JOB_STATUSES;
         
-        const { data: fetchedJobs } = await client.models.Job.list({
-          filter: {
-            status: {
-              in: statusesToQuery
-            }
-          }
-        });
+        const { data: fetchedJobs } = await client.models.Job.list();
         
-        setJobs(fetchedJobs as Job[]);
+        // Filter jobs by status client-side since Amplify doesn't support 'in' operator
+        const filteredJobs = fetchedJobs.filter(job => statusesToQuery.includes(job.status as JobStatus));
+        
+        // Convert the Amplify data format to our Job type, parsing services from JSON
+        const convertedJobs = filteredJobs.map(jobData => ({
+          ...jobData,
+          services: jobData.services ? JSON.parse(jobData.services) : []
+        })) as Job[];
+        
+        setJobs(convertedJobs);
       } catch (error) {
         console.error(`Error fetching ${statusFilter} jobs: `, error);
       } finally {

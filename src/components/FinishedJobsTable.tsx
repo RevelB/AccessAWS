@@ -88,9 +88,15 @@ export function FinishedJobsTable() {
           }
         });
         
+        // Convert the Amplify data format to our Job type, parsing services from JSON
+        const convertedJobs = jobsList.map(jobData => ({
+          ...jobData,
+          services: jobData.services ? JSON.parse(jobData.services) : []
+        })) as Job[];
+        
         const initialValues: Record<string, Record<string, string>> = {};
 
-        jobsList.forEach((jobData) => {
+        convertedJobs.forEach((jobData) => {
           initialValues[jobData.id] = {
             rate: jobData.rate !== undefined ? String(jobData.rate) : '',
             adjusted: jobData.adjusted !== undefined ? String(jobData.adjusted) : '',
@@ -101,7 +107,7 @@ export function FinishedJobsTable() {
             billingnotes: jobData.billingnotes || '',
           };
         });
-        setJobs(jobsList as Job[]);
+        setJobs(convertedJobs);
         setFieldValues(initialValues);
       } catch (error) {
         console.error("Error fetching finished jobs:", error);

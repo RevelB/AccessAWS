@@ -346,9 +346,10 @@ export function JobForm({ mode, initialData, viewOnly = false }: JobFormProps) {
       const selectedServices: ServiceDetail[] = Object.entries(data.services)
         .filter(([, serviceData]) => serviceData.selected)
         .map(([serviceName, serviceData]) => ({
-          name: serviceName === 'Other' ? (serviceData.customName || 'Other') : serviceName,
+          name: serviceName === 'Other' ? 'Other' : serviceName,
           subService: serviceData.subService || '',
           notes: serviceData.notes || '',
+          customName: serviceName === 'Other' ? serviceData.customName : undefined,
         }));
 
 
