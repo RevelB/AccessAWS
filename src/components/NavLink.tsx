@@ -25,8 +25,8 @@ export function NavLink({ href, icon: Icon, children, variant, size, tooltip, ..
     <SidebarMenuButton
       asChild
       isActive={isActive}
-      variant={variant || "default"}
-      size={size || "default"}
+      variant={variant === "link" || variant === "ghost" ? "outline" : "default"}
+      size={size === "icon" ? "default" : (size || "default")}
       tooltip={tooltip}
       className="justify-start"
     >

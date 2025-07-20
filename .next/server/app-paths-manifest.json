@@ -1,1 +1,13 @@
-{}
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/signup/page": "app/signup/page.js",
+  "/(app)/jobs/[id]/page": "app/(app)/jobs/[id]/page.js",
+  "/(app)/deleted-jobs/page": "app/(app)/deleted-jobs/page.js",
+  "/(app)/profile/page": "app/(app)/profile/page.js",
+  "/(app)/jobs/new/page": "app/(app)/jobs/new/page.js",
+  "/(app)/reporting/page": "app/(app)/reporting/page.js",
+  "/(app)/dashboard/[statusFilter]/page": "app/(app)/dashboard/[statusFilter]/page.js"
+}

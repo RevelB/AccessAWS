@@ -89,7 +89,6 @@ export function JobCard({ job }: JobCardProps) {
       await client.models.Job.update({
         id: job.id,
         deliveryDate: newDate.toISOString(),
-        updatedAt: new Date().toISOString(),
       });
       // The local state will update automatically via the real-time listener.
     } catch (error) {
@@ -141,8 +140,7 @@ export function JobCard({ job }: JobCardProps) {
     try {
       await client.models.Job.update({
         id: job.id,
-        status: newStatus,
-        updatedAt: new Date().toISOString()
+        status: newStatus
       });
       // The success toast is commented out by default, which is fine.
       // toast({ title: "Status Updated", description: `Job "${job.clockNumberMediaName}" moved to ${newStatus}.` });
@@ -187,10 +185,10 @@ export function JobCard({ job }: JobCardProps) {
                 )}
 
                 <div className="flex items-left gap-1.5">
-                  {hasProductionNotes && <StickyNote className="h-3 w-3 flex-shrink-0 text-blue-500" title="Has Production Notes" />}
-                  {job.priority && <HIGH_PRIORITY_ICON className="h-4 w-4 flex-shrink-0 text-orange-500" title="High Priority" />}
-                  {job.onHold && <ON_HOLD_ICON className="h-4 w-4 flex-shrink-0 text-orange-600" title="On Hold" />}
-                  {job.stellarTask && <STELLAR_TASK_ICON className="h-4 w-4 flex-shrink-0 text-yellow-500" title="Stellar Task" />}
+                  {hasProductionNotes && <StickyNote className="h-3 w-3 flex-shrink-0 text-blue-500" />}
+                  {job.priority && <HIGH_PRIORITY_ICON className="h-4 w-4 flex-shrink-0 text-orange-500" />}
+                  {job.onHold && <ON_HOLD_ICON className="h-4 w-4 flex-shrink-0 text-orange-600" />}
+                  {job.stellarTask && <STELLAR_TASK_ICON className="h-4 w-4 flex-shrink-0 text-yellow-500" />}
                 </div>
               </div>
 

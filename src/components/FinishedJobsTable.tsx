@@ -206,7 +206,6 @@ export function FinishedJobsTable() {
       await client.models.Job.update({
         id: jobId,
         [field]: value,
-        updatedAt: new Date().toISOString(),
       });
       setJobs(prevJobs => prevJobs.map(j => (j.id === jobId ? { ...j, [field]: value } : j)));
       toast({
@@ -262,7 +261,6 @@ export function FinishedJobsTable() {
         await client.models.Job.update({
             id: jobId,
             [field]: newValue,
-            updatedAt: new Date().toISOString(),
         });
         setJobs(prevJobs => prevJobs.map(j => j.id === jobId ? {...j, [field]: newValue} : j));
         toast({
@@ -300,7 +298,6 @@ export function FinishedJobsTable() {
       await client.models.Job.update({
         id: jobId,
         status: JobStatus.Delivered,
-        updatedAt: new Date().toISOString(),
       });
       // Remove the job from the local state so it disappears from the table
       setJobs(prevJobs => prevJobs.filter(j => j.id !== jobId));

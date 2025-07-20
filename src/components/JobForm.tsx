@@ -358,7 +358,7 @@ export function JobForm({ mode, initialData, viewOnly = false }: JobFormProps) {
         : data.destination || '';
 
       if (mode === 'create') {
-        const jobPayload: Partial<JobCreateInput> = {
+        const jobPayload = {
             clockNumberMediaName: data.clockNumberMediaName,
             deliveryDate: data.deliveryDate.toISOString(),
             destination: finalDestination,
@@ -367,10 +367,8 @@ export function JobForm({ mode, initialData, viewOnly = false }: JobFormProps) {
             onHold: data.onHold,
             inSAP: data.inSAP,
             stellarTask: data.stellarTask,
-            services: selectedServices,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-        };
+            services: JSON.stringify(selectedServices),
+        } as any;
 
         if (data.orderNumber) jobPayload.orderNumber = data.orderNumber;
         if (data.client) jobPayload.client = data.client;
@@ -388,7 +386,7 @@ export function JobForm({ mode, initialData, viewOnly = false }: JobFormProps) {
         router.refresh();
 
       } else if (initialData && 'id' in initialData && initialData.id) {
-        const jobPayload: JobUpdateInput = {
+        const jobPayload = {
             clockNumberMediaName: data.clockNumberMediaName,
             deliveryDate: data.deliveryDate.toISOString(),
             destination: finalDestination,
@@ -397,9 +395,8 @@ export function JobForm({ mode, initialData, viewOnly = false }: JobFormProps) {
             onHold: data.onHold,
             inSAP: data.inSAP,
             stellarTask: data.stellarTask,
-            services: selectedServices,
-            updatedAt: new Date().toISOString(),
-        };
+            services: JSON.stringify(selectedServices),
+        } as any;
         
         // Add optional fields only if they have a value
         if (data.orderNumber) jobPayload.orderNumber = data.orderNumber;
@@ -681,9 +678,8 @@ export function JobForm({ mode, initialData, viewOnly = false }: JobFormProps) {
                           );
                           })}
                       </div>
-                  </ScrollArea>
-                 <FormMessage>{form.formState.errors.services?.message}</FormMessage>
-              </div>
+                                      </ScrollArea>
+                </div>
 
 
               <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
