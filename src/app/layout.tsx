@@ -4,11 +4,23 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from '@/context/AuthContext';
-import { Amplify } from "aws-amplify";
-import outputs from "../../amplify_outputs.json";
+import { cognitoUserPoolsTokenProvider } from 'aws-amplify/auth/cognito';
 
-// Configure Amplify with the backend outputs
-Amplify.configure(outputs);
+// Configure Amplify Gen2 Auth with localStorage
+cognitoUserPoolsTokenProvider.setKeyValueStorage({
+  async setItem(key: string, value: string) {
+    localStorage.setItem(key, value);
+  },
+  async getItem(key: string) {
+    return localStorage.getItem(key);
+  },
+  async removeItem(key: string) {
+    localStorage.removeItem(key);
+  },
+  async clear() {
+    localStorage.clear();
+  },
+});
 
 // const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 

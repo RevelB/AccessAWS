@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertTriangle, Loader2 } from 'lucide-react';
 import { client } from '@/lib/amplify';
 import type { Job } from '@/lib/types';
+import { JobStatus } from '@/lib/types';
 import { useAuth } from '@/context/AuthContext';
 
 export default function EditJobPage() {
@@ -47,17 +48,19 @@ export default function EditJobPage() {
             creator: jobData.creator || '',
             checker: jobData.checker || '',
             commercialDescription: jobData.commercialDescription || '',
-            status: jobData.status as any,
-            priority: jobData.priority,
-            onHold: jobData.onHold,
-            inSAP: jobData.inSAP,
-            stellarTask: jobData.stellarTask,
-            rate: jobData.rate,
-            adjusted: jobData.adjusted,
+            status: jobData.status as JobStatus,
+            priority: jobData.priority ?? false,
+            onHold: jobData.onHold ?? false,
+            inSAP: jobData.inSAP ?? false,
+            stellarTask: jobData.stellarTask ?? false,
+            rate: jobData.rate ?? undefined,
+            adjusted: jobData.adjusted ?? undefined,
             inputter: jobData.inputter || '',
             verifier: jobData.verifier || '',
-            extcosts: jobData.extcosts,
+            extcosts: jobData.extcosts ?? undefined,
             billingnotes: jobData.billingnotes || '',
+            createdAt: jobData.createdAt || new Date().toISOString(),
+            updatedAt: jobData.updatedAt || new Date().toISOString(),
           };
           setJob(job);
         } else {

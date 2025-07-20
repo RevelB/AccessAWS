@@ -29,10 +29,7 @@ export default function SignupPage() {
     setError(null);
     setSuccess(null);
 
-    if (!email.toLowerCase().endsWith('@extremereach.com')) {
-      setError('Access is restricted to @extremereach.com email addresses.');
-      return;
-    }
+
 
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
@@ -93,7 +90,7 @@ export default function SignupPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@extremereach.com"
+                placeholder="you@example.com"
                 required
                 disabled={isLoading}
                 className="text-base"

@@ -50,10 +50,7 @@ export default function LoginPage() {
     setError(null);
     setShowResendVerification(false);
 
-    if (!email.toLowerCase().endsWith('@extremereach.com')) {
-      setError('Access is restricted to @extremereach.com email addresses.');
-      return;
-    }
+
 
     setIsLoading(true);
 
@@ -102,7 +99,7 @@ export default function LoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@extremereach.com"
+                placeholder="you@example.com"
                 required
                 disabled={isLoading || isResending}
                 className="text-base"
